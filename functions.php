@@ -161,5 +161,28 @@ function bones_wpsearch($form) {
 	return $form;
 } // don't remove this bracket!
 
+/************* WooCommerce Bones Support By Ryan Houston *****************/
 
+// Lets declare WooCommerce support
+add_theme_support( 'woocommerce' );
+
+// First unhook the WooCommerce wrappers
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+
+// Then hook in your own functions to display the wrappers bones requires
+add_action('woocommerce_before_main_content', 'bones_wrapper_start', 10);
+add_action('woocommerce_after_main_content', 'bones_wrapper_end', 10);
+
+// Bones theme wrapper start mark-up
+function bones_wrapper_start() {
+  echo '<div id="content">
+  		<div id="inner-content" class="container clearfix">
+  			<div id="main" class="col_m_12 col_t_8" role="main">';
+}
+ 
+// Bones theme wrapper end mark-up
+function bones_wrapper_end() {
+  echo '</div>';
+}
 ?>
